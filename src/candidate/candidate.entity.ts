@@ -9,6 +9,9 @@ export class Candidate {
   @Column()
   name: string;
 
+  @Column()
+  description: string;
+
   @ManyToOne(() => Vote, (vote) => vote.id)
   vote: Vote;
 

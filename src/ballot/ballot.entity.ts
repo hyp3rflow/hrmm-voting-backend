@@ -1,8 +1,10 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Vote } from 'src/vote/vote.entity';
 import { Candidate } from 'src/candidate/candidate.entity';
@@ -13,15 +15,21 @@ export class Ballot {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ default: false })
+  isVoted: boolean;
+
   @ManyToOne(() => Vote, (vote) => vote.id)
   vote: Vote;
 
-  @ManyToOne(() => Candidate, (candidate) => candidate.id)
+  @ManyToOne(() => Candidate, (candidate) => candidate.id, { nullable: true })
   candidate: Candidate;
 
   @ManyToOne(() => User, (user) => user.id)
   voter: User;
 
   @CreateDateColumn()
-  timestamp: Date;
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  lastModifiedAt: Date;
 }

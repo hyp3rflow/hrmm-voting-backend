@@ -6,9 +6,11 @@ import { CandidateModule } from 'src/candidate/candidate.module';
 import { VoteModule } from 'src/vote/vote.module';
 import { ApiController } from './api.controller';
 import { JwtStrategy } from './jwt.strategy';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
+    UserModule,
     VoteModule,
     CandidateModule,
     BallotModule,

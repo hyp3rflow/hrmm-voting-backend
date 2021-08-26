@@ -10,9 +10,10 @@ export class CandidateService {
     private candidateRepository: Repository<Candidate>,
   ) {}
 
-  async createCandidate(name: string, voteId: number) {
+  async createCandidate(name: string, description: string, voteId: number) {
     const candidate = await this.candidateRepository.create({
       name,
+      description,
       vote: { id: voteId },
     });
     return this.candidateRepository.save(candidate);

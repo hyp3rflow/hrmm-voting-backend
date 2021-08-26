@@ -20,6 +20,7 @@ interface CreateVoteBody {
 
 interface CreateCandidateBody {
   name: string;
+  description: string;
   voteId: number;
 }
 
@@ -56,6 +57,10 @@ export class AdminController {
   @UseGuards(AdminAuthGuard)
   @Post('createCandidate')
   async createCandidate(@Body() body: CreateCandidateBody) {
-    return await this.candidateService.createCandidate(body.name, body.voteId);
+    return await this.candidateService.createCandidate(
+      body.name,
+      body.description,
+      body.voteId,
+    );
   }
 }
