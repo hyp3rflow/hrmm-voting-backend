@@ -22,8 +22,16 @@ export class CandidateService {
   async getCandidateList(voteId: number) {
     return this.candidateRepository.find({
       where: { vote: { id: voteId } },
-      select: ['id', 'name'],
+      select: ['id', 'name', 'description'],
       order: { id: 'ASC' },
     });
+  }
+
+  async increaseCandidateVoteCount(candidateId: number) {
+    return this.candidateRepository.increment(
+      { id: candidateId },
+      'voteCount',
+      1,
+    );
   }
 }

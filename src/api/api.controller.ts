@@ -34,9 +34,15 @@ export class ApiController {
   @Get('votes')
   async getVoteList(@Request() req) {
     const ballots = await this.ballotService.getBallotList(req.user.id);
-    return await this.voteService.getVoteListByIds(
+    const votes = await this.voteService.getVoteListByIds(
       ballots.reduce((prev, ballot) => [...prev, ballot.vote.id], []),
     );
+    return votes.map((vote) => {
+      const isVoted = ballots.find(
+        (ballot) => ballot.vote.id === vote.id,
+      ).isVoted;
+      return { ...vote, isVoted };
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -61,8 +67,8 @@ export class ApiController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('vote')
-  async getVote(@Request() req, @Body('voteId') voteId: number) {
+  @Get('vote/:id')
+  async getVote(@Request() req, @Param('id') voteId: number) {
     const isExist = await this.ballotService.getBallotExist(
       req.user.id,
       voteId,
@@ -103,6 +109,7 @@ export class ApiController {
     if (!isOpened) {
       throw new HttpException('CLOSED_VOTE', HttpStatus.FORBIDDEN);
     }
+    await this.candidateService.increaseCandidateVoteCount(candidateId);
     return await this.ballotService.voteBallot(
       req.user.id,
       voteId,

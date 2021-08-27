@@ -53,7 +53,8 @@ export class BallotService {
   async getBallotExist(userId: number, voteId: number) {
     const ballotCount = await this.ballotRepository.count({
       where: { voter: { id: userId }, vote: { id: voteId } },
+      relations: ['vote', 'voter'],
     });
-    return ballotCount !== 0;
+    return ballotCount === 1;
   }
 }
