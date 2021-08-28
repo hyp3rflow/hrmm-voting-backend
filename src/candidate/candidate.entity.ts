@@ -1,5 +1,11 @@
 import { Vote } from 'src/vote/vote.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Candidate {
@@ -13,6 +19,7 @@ export class Candidate {
   description: string;
 
   @ManyToOne(() => Vote, (vote) => vote.id)
+  @Index()
   vote: Vote;
 
   @Column({ default: 0 })

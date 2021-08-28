@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Index } from 'typeorm';
 
 @Entity()
 export class Vote {
@@ -12,9 +12,11 @@ export class Vote {
   description: string;
 
   @Column()
+  @Index()
   startTimestamp: Date;
 
   @Column()
+  @Index()
   endTimestamp: Date;
 
   @Column({ default: false })

@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -19,12 +20,14 @@ export class Ballot {
   isVoted: boolean;
 
   @ManyToOne(() => Vote, (vote) => vote.id)
+  @Index()
   vote: Vote;
 
   @ManyToOne(() => Candidate, (candidate) => candidate.id, { nullable: true })
   candidate: Candidate;
 
   @ManyToOne(() => User, (user) => user.id)
+  @Index()
   voter: User;
 
   @CreateDateColumn()
