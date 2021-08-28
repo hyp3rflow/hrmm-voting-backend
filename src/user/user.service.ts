@@ -23,7 +23,7 @@ export class UserService {
 
   async getUser(id: number) {
     return this.userRepository.findOne(id, {
-      select: ['studentNumber', 'userId'],
+      select: ['studentNumber', 'userId', 'level'],
     });
   }
 

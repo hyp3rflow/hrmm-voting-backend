@@ -6,12 +6,14 @@ import { CandidateModule } from 'src/candidate/candidate.module';
 import { UserModule } from 'src/user/user.module';
 import { VoteModule } from 'src/vote/vote.module';
 import { AdminController } from './admin.controller';
+import { BallotModule } from 'src/ballot/ballot.module';
 
 @Module({
   imports: [
     UserModule,
     VoteModule,
     CandidateModule,
+    BallotModule,
     JwtModule.register({
       secret: JWT_SECRET,
       signOptions: { expiresIn: '1h' },

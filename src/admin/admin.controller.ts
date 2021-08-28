@@ -1,4 +1,7 @@
+import { Param } from '@nestjs/common';
+import { Get } from '@nestjs/common';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { BallotService } from 'src/ballot/ballot.service';
 import { CandidateService } from 'src/candidate/candidate.service';
 import { UserService } from 'src/user/user.service';
 import { VoteService } from 'src/vote/vote.service';
@@ -30,6 +33,7 @@ export class AdminController {
     private userService: UserService,
     private voteService: VoteService,
     private candidateService: CandidateService,
+    private ballotService: BallotService,
   ) {}
 
   @UseGuards(AdminAuthGuard)
@@ -62,5 +66,20 @@ export class AdminController {
       body.description,
       body.voteId,
     );
+  }
+
+  @UseGuards(AdminAuthGuard)
+  @Get('getUserByStudentNumber/:studentNumber')
+  async getUserByStudentNumber(@Param('studentNumber') studentNumber: string) {
+    return await this.userService.getUserByStudentNumber(studentNumber);
+  }
+
+  @UseGuards(AdminAuthGuard)
+  @Post('createBallot')
+  async createBallot(
+    @Body('userId') userId: number,
+    @Body('voteId') voteId: number,
+  ) {
+    return await this.ballotService.createBallot(userId, voteId);
   }
 }
