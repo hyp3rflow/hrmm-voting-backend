@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "hrmm-cert" {
-  domain_name       = "hrmm.xyz"
+  domain_name       = "*.hrmm.xyz"
   validation_method = "DNS"
 
   tags = {

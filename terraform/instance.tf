@@ -23,7 +23,7 @@ resource "aws_instance" "hrmm-vote-instance" {
     aws_key_pair.hrmm
   ]
 
-  instance_type               = "t3a.nano"
+  instance_type               = "t3a.micro"
   ami                         = data.aws_ami.amazon-linux-2.id
   associate_public_ip_address = true
   vpc_security_group_ids      = ["${aws_security_group.hrmm-vote-sg.id}"]
