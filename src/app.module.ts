@@ -5,8 +5,6 @@ import { AdminModule } from './admin/admin.module';
 import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 const {
   CONF_RDB_HOST,
